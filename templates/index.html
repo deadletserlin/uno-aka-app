@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UNO Simulation - AKA</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+<body>
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb red"></div>
+    <div class="orb yellow"></div>
+    <div class="orb blue"></div>
+    <div class="orb green"></div>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">UNO</div>
+      <div>
+        <h1>Simulasi Permainan Kartu UNO</h1>
+        <p>Perbandingan Algoritma <b>Iteratif</b> dan <b>Rekursif</b> (TUBES AKA)</p>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">Web</span>
+      <span class="badge">Iteratif vs Rekursif</span>
+      <span class="badge">Runtime</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Parameter Simulasi</h2>
+      <div class="grid">
+        <label class="field">
+          <span>Jumlah Pemain</span>
+          <input id="players" type="number" value="4" min="2" max="10" />
+        </label>
+
+        <label class="field">
+          <span>Kartu Awal</span>
+          <input id="hand" type="number" value="7" min="1" max="20" />
+        </label>
+
+        <label class="field">
+          <span>Maksimum Giliran</span>
+          <input id="turns" type="number" value="500" min="10" max="5000" />
+        </label>
+
+        <label class="field">
+            <span>Pengulangan (repeat)</span>
+            <input id="repeat" type="number" value="30" min="1" max="500" />
+          </label>          
+      </div>
+
+      <div class="actions">
+        <button class="btn uno red" onclick="runAlgo('iterative')">
+          ▶ Jalankan Iteratif
+        </button>
+        <button class="btn uno blue" onclick="runAlgo('recursive')">
+          ▶ Jalankan Rekursif
+        </button>
+        <button class="btn uno dark" onclick="compare()">
+          ⚡ Bandingkan
+        </button>
+      </div>
+
+      <div class="hint">
+        Tips: untuk melihat perbedaan waktu, coba naikkan <b>Maksimum Giliran</b> (mis. 2000–5000).
+      </div>
+    </section>
+
+    <section class="card output-card">
+      <h2>Hasil</h2>
+
+      <div class="output-grid">
+        <div class="mini-card">
+          <div class="mini-title">ITERATIF</div>
+          <div class="mini-body" id="out-iter">
+            <div class="muted">Belum dijalankan</div>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-title">REKURSIF</div>
+          <div class="mini-body" id="out-rec">
+            <div class="muted">Belum dijalankan</div>
+          </div>
+        </div>
+
+        <div class="mini-card wide">
+          <div class="mini-title">PERBANDINGAN</div>
+          <div class="mini-body" id="out-compare">
+            <div class="muted">Klik tombol “Bandingkan”</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        *Simulasi UNO disederhanakan untuk fokus pada analisis kompleksitas & runtime.
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© TUBES AKA — UNO Simulation</span>
+  </footer>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
