@@ -61,13 +61,11 @@ def _step_once(state, rng: random.Random):
     p = state["turn"]
     hand = state["hands"][p]
 
-    # Terapkan pending draw akibat D2
     if state["pending_draw"] > 0:
         for _ in range(state["pending_draw"]):
             hand.append(_rand_card(rng))
         state["pending_draw"] = 0
 
-    # Cari kartu playable (scan sederhana)
     playable_idx = -1
     for i, c in enumerate(hand):
         if _is_playable(c, state["top"], state["color"]):
@@ -75,7 +73,6 @@ def _step_once(state, rng: random.Random):
             break
 
     if playable_idx == -1:
-        # Tidak ada kartu cocok -> draw 1
         hand.append(_rand_card(rng))
     else:
         played = hand.pop(playable_idx)
@@ -85,22 +82,18 @@ def _step_once(state, rng: random.Random):
         else:
             state["color"] = rng.choice(COLORS)
 
-        # Efek aksi
         if played["kind"] == "SKIP":
-            # loncat 1 pemain
             state["turn"] = _next_idx(state, state["turn"])
         elif played["kind"] == "REV":
             state["dir"] *= -1
         elif played["kind"] == "D2":
             state["pending_draw"] += 2
 
-        # Cek menang
         if len(hand) == 0:
             state["finished"] = True
             state["winner"] = p
             return
 
-    # Next player
     state["turn"] = _next_idx(state, state["turn"])
     state["steps"] += 1
 
@@ -146,7 +139,6 @@ def run():
     if data["type"] == "iterative":
         turns = simulate_iter(players, hand, turns_req, seed=seed)
     else:
-        # Rekursif: sama persis param-nya, hanya beda cara loop-nya
         turns = simulate_rec(players, hand, turns_req, seed=seed)
 
     end = time.perf_counter()
